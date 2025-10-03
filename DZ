@@ -1,3 +1,4 @@
+#Задание 1 Шифр Цезаря
 english_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
 english_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 russian_lower_alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
@@ -6,7 +7,7 @@ print("Введите сдвиг")
 key = int(input())
 print("Введите текст")
 text = input()
-def my_function(k, t):
+def shifr(k, t):
     for i in range(len(t)):
         if t[i] in russian_upper_alphabet:
             print(russian_upper_alphabet[(russian_upper_alphabet.index(t[i]) + k) % len(russian_upper_alphabet)], end='')
@@ -18,4 +19,6 @@ def my_function(k, t):
             print(english_lower_alphabet[(english_lower_alphabet.index(t[i]) + k) % len(english_lower_alphabet)], end='')
         else:
             print(t[i], end='')
-my_function(key, text)
+shifr(key, text)
+
+
