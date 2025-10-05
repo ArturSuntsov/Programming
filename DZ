@@ -19,6 +19,6 @@ def shifr(k, t):
             print(english_lower_alphabet[(english_lower_alphabet.index(t[i]) + k) % len(english_lower_alphabet)], end='')
         else:
             print(t[i], end='')
-shifr(key, text
+shifr(key, text)
 
 
