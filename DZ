@@ -1,6 +1,6 @@
 #Шифр Цезаря
-english_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
-english_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+english_lower_alphabet = "abcdefghijklmnopqrstuvwxyz"
+english_upper_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 russian_lower_alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 russian_upper_alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
 print("Введите сдвиг")
@@ -16,15 +16,15 @@ def shifr(k, t):
     """
     for i in range(len(t)):
         if t[i] in russian_upper_alphabet:
-            print(russian_upper_alphabet[(russian_upper_alphabet.index(t[i]) + k) % len(russian_upper_alphabet)], end='')
+            print(russian_upper_alphabet[(russian_upper_alphabet.index(t[i]) + k) % len(russian_upper_alphabet)], end="")
         elif t[i] in english_upper_alphabet:
-            print(english_upper_alphabet[(english_upper_alphabet.index(t[i]) + k) % len(russian_upper_alphabet)], end='')
+            print(english_upper_alphabet[(english_upper_alphabet.index(t[i]) + k) % len(russian_upper_alphabet)], end="")
         elif t[i] in russian_lower_alphabet:
-            print(russian_lower_alphabet[(russian_lower_alphabet.index(t[i]) + k) % len(russian_lower_alphabet)], end='')
+            print(russian_lower_alphabet[(russian_lower_alphabet.index(t[i]) + k) % len(russian_lower_alphabet)], end="")
         elif t[i] in english_lower_alphabet:
-            print(english_lower_alphabet[(english_lower_alphabet.index(t[i]) + k) % len(english_lower_alphabet)], end='')
+            print(english_lower_alphabet[(english_lower_alphabet.index(t[i]) + k) % len(english_lower_alphabet)], end="")
         else:
-            print(t[i], end='')
+            print(t[i], end="")
 
 shifr(key, text)
 
@@ -64,3 +64,42 @@ def print_pack_report(cakes):
     else: 
         print("Не заказываем!")
 print_pack_report(cakes)
+
+
+#Cложные пароли
+import random  
+
+def make_password():
+    """
+    Создает сложный пароль из (на выбор): 
+    Верхнего/нижнего регистра алфавита
+    Цифр
+    Спец символов
+    """
+    all_chars = ""
+    english_lower = 'abcdefghijklmnopqrstuvwxyz'
+    english_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 
+    numbers = "0123456789"
+    special_symbols = "!@#№$%^&*()_-+=;:?`~/"
+    use_lower = input("Включить нижний регистр? (да/нет): ").lower() == 'да'
+    use_upper = input("Включить верхний регистр? (да/нет): ").lower() == 'да'
+    use_num = input("Включить цифры? (да/нет): ").lower() == 'да'
+    use_symb = input("Включить специальные символы? (да/нет): ").lower() == 'да'
+
+    if use_lower:
+        all_chars += english_lower
+    if use_upper:
+        all_chars += english_upper
+    if use_num:
+        all_chars += numbers
+    if use_symb:
+        all_chars += special_symbols
+    password = ""
+    lenght = int(input("Введите длину пароля: "))
+    for _ in range(lenght):  
+        password += random.choice(all_chars)
+    return password
+
+print("=== Генератор пароля ===")
+print("Ваш новый пароль:", make_password())
+print("=== Готово! ===")
