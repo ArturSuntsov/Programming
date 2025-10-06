@@ -1,3 +1,4 @@
+#Шифр Цезаря
 english_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
 english_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 russian_lower_alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
@@ -9,7 +10,7 @@ text = input()
 
 def shifr(k, t):
     """
-    Шифрует текст с помощью шифра Цезаря, сдвигая символы на введенное количство позиций.
+    Шифрует текст с помощью шифра Цезаря, сдвигая символы на введенное количство позиций
     параметр k: Сдвиг для шифрования
     параметр t: Текст для шифрования
     """
@@ -28,14 +29,14 @@ def shifr(k, t):
 shifr(key, text)
 
 
-
+#Олимпиада
 scores = [20, 48, 52, 38, 36, 13, 7, 41, 34, 24, 5, 51, 9, 14, 28]
 student_score = int(input("Введите ваш балл: "))
 def check_winners(scores, student_score):
     """
-    Проверяет, входит ли балл студента в тройку лидеров.
-    параметр scores: Список баллов участников.
-    параметр student_score: Балл студента.
+    Проверяет, входит ли балл студента в тройку лидеров
+    параметр scores: Список баллов участников
+    параметр student_score: Балл студента
     """
     sorted_scores = sorted(scores, reverse=True)
     top_three = sorted_scores[:3]
@@ -45,3 +46,21 @@ def check_winners(scores, student_score):
     else:
         print("Вы не попали в тройку победителей.")
 check_winners(scores, student_score)
+
+
+#Пироженки и коробочки
+cakes = int(input("Введите количество пирожных: "))
+def print_pack_report(cakes):
+    """
+    Проверяет, по сколько пирожных можно расфасовать
+    параметр cakes: введенное количество пирожных
+    """
+    if cakes % 5 == 0 and cakes % 3 == 0:
+        print("расфасуем по 3 или по 5")
+    elif cakes % 5 == 0 and cakes % 3 != 0:
+        print("расфасуем по 5")
+    elif cakes % 3 == 0 and cakes % 3 != 0:
+        print("расфасуем по 3")
+    else: 
+        print("Не заказываем!")
+print_pack_report(cakes)
