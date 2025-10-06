@@ -28,3 +28,20 @@ def shifr(k, t):
 shifr(key, text)
 
 
+
+scores = [20, 48, 52, 38, 36, 13, 7, 41, 34, 24, 5, 51, 9, 14, 28]
+student_score = int(input("Введите ваш балл: "))
+def check_winners(scores, student_score):
+    """
+    Проверяет, входит ли балл студента в тройку лидеров.
+    параметр scores: Список баллов участников.
+    параметр student_score: Балл студента.
+    """
+    sorted_scores = sorted(scores, reverse=True)
+    top_three = sorted_scores[:3]
+    
+    if student_score in top_three:
+        print("Вы в тройке победителей!")
+    else:
+        print("Вы не попали в тройку победителей.")
+check_winners(scores, student_score)
