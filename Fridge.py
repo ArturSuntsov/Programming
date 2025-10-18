@@ -17,6 +17,13 @@ def add(items, title, amount, expiration_date=None):
     """
     Добавляет продукт (его название,его количество, 
     его срок годности).
+    Args:
+        items({}) - словарь для добавления продуктов
+        title(str) - название продукта
+        amount(Decimal) - количество продукта
+        expiration_date - срок годности
+    Returns:
+        Добавление элементов в словарь
     """
     if isinstance(amount, Decimal):
         amount_decimal = amount
@@ -38,12 +45,16 @@ def add(items, title, amount, expiration_date=None):
         'expiration_date': date_obj
     })
 
-
 def add_by_note(items, note):
     """
     Автоматически вызывает add,
-    извлекает название, количество,
+    извлекает название, количество
     продукта из строки.
+    Args:
+        items({}) - словарь для добавления продуктов
+        note(str) - строка с информацией о продукте
+    Returns:
+        Вызывает функцию add
     """
     parts = note.split() 
     
@@ -61,6 +72,11 @@ def add_by_note(items, note):
 def find(items, needle):
     """
     Ищет все продукты с заданным названием.
+    Args:
+        items({}) - словарь с продуктами
+        needle(str) - искомый продукт
+    Returns:
+        list: Список искомых продуктов
     """
     results = []
     needle_lower = needle.lower()
@@ -74,6 +90,12 @@ def find(items, needle):
 def amount(items, needle):
     """
     Считает общее количество продукта.
+    
+    Args:
+        items({}) - словарь с продуктами
+        needle(str) - название продукта для подсчета
+    Returns:
+        Decimal: общее количество продукта
     """
     total = Decimal('0')
     
