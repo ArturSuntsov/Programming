@@ -11,8 +11,11 @@ text = input()
 def shifr(k, t):
     """
     Шифрует текст с помощью шифра Цезаря, сдвигая символы на введенное количство позиций
-    параметр k: Сдвиг для шифрования
-    параметр t: Текст для шифрования
+    Args:
+        k(int): сдвиг для шифрования
+        t(str): текст для шифрования
+    Returns:
+        str: Зашифрованный текст
     """
     for i in range(len(t)):
         if t[i] in russian_upper_alphabet:
@@ -35,8 +38,11 @@ student_score = int(input("Введите ваш балл: "))
 def check_winners(scores, student_score):
     """
     Проверяет, входит ли балл студента в тройку лидеров
-    параметр scores: Список баллов участников
-    параметр student_score: Балл студента
+    Args:
+        scores(list): список баллов участников
+        student_score(int): балл студента
+    Returns:
+        str: Сообщение о результате
     """
     sorted_scores = sorted(scores, reverse=True)
     top_three = sorted_scores[:3]
@@ -53,7 +59,10 @@ cakes = int(input("Введите количество пирожных: "))
 def print_pack_report(cakes):
     """
     Проверяет, по сколько пирожных можно расфасовать
-    параметр cakes: введенное количество пирожных
+    Args:
+        cakes(int): введенное количество пирожных
+    Returns:
+        str: Возможность расфасовки
     """
     if cakes % 5 == 0 and cakes % 3 == 0:
         print("расфасуем по 3 или по 5")
@@ -75,6 +84,8 @@ def make_password():
     Верхнего/нижнего регистра алфавита
     Цифр
     Спец символов
+    Returns:
+        str: сгенерированный пароль
     """
     all_chars = ""
     english_lower = 'abcdefghijklmnopqrstuvwxyz'
@@ -109,6 +120,10 @@ print("=== Готово! ===")
 def arabic_to_roman(num):
     """ 
     Перевод из арабских чисел в римские
+    Args:
+        num(int): арабское число
+    Returns:
+        str: римское представление числа
     """
     val = [
         1000, 900, 500, 400,
