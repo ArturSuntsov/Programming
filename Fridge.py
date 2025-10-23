@@ -13,6 +13,8 @@ goods = {
     ],
 }
 
+DATE_FORMAT = '%Y-%m-%d'
+
 def add(items, title, amount, expiration_date=None):
     """
     Добавляет продукт (его название,его количество, 
@@ -25,25 +27,12 @@ def add(items, title, amount, expiration_date=None):
     Returns:
         Добавление элементов в словарь
     """
-    if isinstance(amount, Decimal):
-        amount_decimal = amount
-    else:
-        amount_decimal = Decimal(str(amount))
-    
-    date_obj = None
-    if expiration_date is not None:
-        if isinstance(expiration_date, str):
-            date_obj = datetime.date.fromisoformat(expiration_date)
-        else:
-            date_obj = expiration_date
-    
     if title not in items:
         items[title] = []
-    
-    items[title].append({
-        'amount': amount_decimal,
-        'expiration_date': date_obj
-    })
+    properties = dict(amount=amount, expiration_date=expiration_date)
+    if expiration_date:
+        properties['expiration_date'] = datetime.datetime.strptime(expiration_date, DATE_FORMAT).date()
+    items[title].append(properties)
 
 def add_by_note(items, note):
     """
@@ -56,7 +45,7 @@ def add_by_note(items, note):
     Returns:
         Вызов функции add, извлечение информации о продукте
     """
-    parts = note.split() 
+    parts = str.split(note)
     
     if '-' in parts[-1]:
         expiration_date = parts[-1]
@@ -78,13 +67,13 @@ def find(items, needle):
     Returns:
         list: Список искомых продуктов
     """
-    results = []
-    needle_lower = needle.lower()
-    for title in items:
-        if needle_lower in title.lower():
-            results.append(title)
-    return results
-    add(items, title, amount, expiration_date)
+    result = []   
+    
+    for title in items:  
+        if needle.lower() in title.lower(): 
+            result.append(title)  
+    return result
+
 
 
 def amount(items, needle):
@@ -97,15 +86,10 @@ def amount(items, needle):
     Returns:
         Decimal: общее количество продукта
     """
-    total = Decimal('0')
-    
-    if not items:
-        return Decimal('0')
-    
-    for product_name in items:
-        if needle.lower() in product_name.lower():
-            for batch in items[product_name]:  
-                total += batch['amount']  
-    
-    return total
+    matching_titles = find(items, needle)
+    result = Decimal('0')
 
+    for title in matching_titles:
+        for properties in items[title]:
+            result += properties['amount']
+    return result
