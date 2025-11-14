@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог книг</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+{% block content %}
+    <div class="container">
+        <h1>Каталог книг</h1>
+        <ul class="book-list">
+            {% for book in books %}
+            <li class="book-item">
+                <h2 class="book-title">Название книги: {{ book.title }}</h2>
+                <p class="book-author">Автор: {{ book.author }}</p>
+                <p class="book-year"> Год издания: {{ book.year }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+</body>
+</html>
