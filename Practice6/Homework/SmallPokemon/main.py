@@ -1,12 +1,12 @@
 import requests
 
-# Вывод первых 20 покемонов
+# Получаем первые 20 покемонов.
 url = 'https://pokeapi.co/api/v2/pokemon'
 params = {'limit': 20}
 
 response = requests.get(url, params=params)
 
-# Проверка на выполнение и вывод имен покемонов
+# Если запрос прошёл успешно — выводим имена, иначе пишем "Ошибка!".
 if response.status_code == 200:
     data = response.json()
     for pokemon in data['results']:
@@ -14,11 +14,11 @@ if response.status_code == 200:
 else:
     print('Ошибка!')
 
-# Отображение информации о введенном покемоне
+# Спрашиваем у пользователя имя покемона и ищем про него информацию.
 pokemon_name = input('Введите название покемона:')
 response_info = requests.get(url + '/' + str(pokemon_name))
 
-#  Проверка на выполнение и вывод конкретных данных
+# Если такой покемон есть — выводим его данные.
 if response_info.status_code == 200:
     data = response_info.json()
     print('Информация о покемоне:')
