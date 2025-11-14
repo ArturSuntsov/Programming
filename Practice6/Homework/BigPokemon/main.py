@@ -1,60 +1,68 @@
 import requests
 
+poke_team = []
+
 
 def get_pokemons():
     """
-    Функция для получения всех покемонов
+    Получает список покемонов из API.
 
-    :return pokemons [List]: Список покемонов
+    Returns:
+        Список покемонов или сообщение об ошибке.
     """
     url = 'https://pokeapi.co/api/v2/pokemon?limit=500'
     response = requests.get(url)
 
     if response.status_code == 200:
-        pokemons = response.json()
-        return pokemons['results']
+        return response.json()['results']
     else:
-        return ('Ошибка!')
+        return 'Ошибка!'
+
 
 def poke_exist(name):
     """
-    Функция для проверки существования покемона
+    Проверяет, существует ли покемон с таким именем.
 
-    :param name [str]: Название покемона
+    Args:
+        name (str): Имя покемона.
 
-    :return [bool]: Существует или нет
+    Returns:
+        bool: True, если покемон существует, иначе False.
     """
-    data_poke = get_pokemons()
-    if name in [poke['name'] for poke in data_poke]:
-        return True
-    else:
-        return False
+    pokemons = get_pokemons()
+    return name in [poke['name'] for poke in pokemons]
+
 
 def add_poke_to_team(name):
     """
-    Функция для добавления покемона в команду (если его нет в команде)
+    Добавляет покемона в команду, если его там ещё нет.
 
-    :param name[str]: Название покемона
+    Args:
+        name (str): Имя покемона.
 
-    :return: Добавляет покемона в команду, если его в ней нет
-            Выводит сообщение о результате
+    Returns:
+        Ничего не возвращает, просто печатает результат.
     """
-    if poke_exist(name):
-        if name not in poke_team:
-            poke_team.append(name)
-            print(f'{name} добавлен в команду!')
-        else:
-            print(f'{name} уже в команде!')
-    else:
+    if not poke_exist(name):
         print('Такого покемона не существует!')
+        return
+
+    if name in poke_team:
+        print(f'{name} уже в команде!')
+    else:
+        poke_team.append(name)
+        print(f'{name} добавлен в команду!')
+
 
 def delete_poke_from_team(name):
     """
-    Функция для удаления покемона из команды
+    Удаляет покемона из команды.
 
-    :param name [str]: Название покемона
+    Args:
+        name (str): Имя покемона.
 
-    :return: Удаляет покемона из команды, если он там есть
+    Returns:
+        Ничего не возвращает, просто печатает результат.
     """
     if name in poke_team:
         poke_team.remove(name)
@@ -62,90 +70,108 @@ def delete_poke_from_team(name):
     else:
         print(f'{name} нет в команде!')
 
+
 def get_info_team(poke_team):
     """
-    Функция для вывода информации о покемонах в команде
+    Выводит информацию обо всех покемонах в команде.
 
-    :param poke_team [List]: Список команды покемонов
+    Args:
+        poke_team (list): Список имён покемонов.
 
-    :return: Выводит информацию о покемонах в команде
+    Returns:
+        Ничего не возвращает, печатает данные.
     """
-    url = 'https://pokeapi.co/api/v2/pokemon'
-
     print('\nПокемоны в команде:')
-    if poke_team != []:
-        for pokemon in poke_team:
-            response_info_poke = requests.get(url + '/' + str(pokemon))
-            if response_info_poke.status_code == 200:
-                info = response_info_poke.json()
-                count = 1
-                print(f'\n{count}. ------------{info["name"]}------------')
-                str_types = 'Тип: ' + ', '.join(type['type']['name'] for type in info['types'])
-                print(str_types)
-                print(f'Вес: {info["weight"]}')
-                print(f'Рост: {info["height"]}')
-                str_abil = 'Способности: ' + ', '.join(abil['ability']['name'] for abil in info['abilities'])
-                print(str_abil)
-                count += 1
-    else:
+    if not poke_team:
         print('В команде нет покемонов!')
+        return
+
+    count = 1
+    for name in poke_team:
+        info = get_info_poke(name)
+        if info:
+            print(f'\n{count}. ------------{info["name"]}------------')
+            types = ', '.join(t['type']['name'] for t in info['types'])
+            print(f'Тип: {types}')
+            print(f'Вес: {info["weight"]}')
+            print(f'Рост: {info["height"]}')
+            abilities = ', '.join(a['ability']['name'] for a in info['abilities'])
+            print(f'Способности: {abilities}')
+            count += 1
+
 
 def get_info_poke(pokemon_name):
     """
-    Функция для получения списка информации о конкретном покемоне
+    Получает полные данные о покемоне из API.
 
-    :param pokemon_name [str]: Название покемона
+    Args:
+        pokemon_name (str): Имя покемона.
 
-    :return info [List]: Список с информацией о покемоне
+    Returns:
+        dict: Данные о покемоне или None, если ошибка.
     """
-    url = 'https://pokeapi.co/api/v2/pokemon'
-    response_info_poke = requests.get(url + '/' + str(pokemon_name))
-    if response_info_poke.status_code == 200:
-        info = response_info_poke.json()
-        return info
+    url = f'https://pokeapi.co/api/v2/pokemon/{pokemon_name}'
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    return None
+
 
 def print_info_poke(pokemon_name):
     """
-    Функция для вывода информации о покемоне
+    Печатает информацию о конкретном покемоне.
 
-    :param pokemon_name [str]: Название покемона
+    Args:
+        pokemon_name (str): Имя покемона.
 
-    :return: Выводит информацию о покемоне
+    Returns:
+        Ничего не возвращает, просто выводит данные.
     """
     info = get_info_poke(pokemon_name)
+    if not info:
+        print('Не удалось получить данные о покемоне.')
+        return
+
     print(f'\nИнформация о: {info["name"]}')
-    str_types = 'Тип: ' + ', '.join(type['type']['name'] for type in info['types'])
-    print(str_types)
+    types = ', '.join(t['type']['name'] for t in info['types'])
+    print(f'Тип: {types}')
     print(f'Вес: {info["weight"]}')
     print(f'Рост: {info["height"]}')
-    str_abil = 'Способности: ' + ', '.join(abil['ability']['name'] for abil in info['abilities'])
-    print(str_abil)
+    abilities = ', '.join(a['ability']['name'] for a in info['abilities'])
+    print(f'Способности: {abilities}')
+
 
 def fight_pokemons(first_pokemon, second_pokemon):
     """
-    Функция для тренировочного боя между двумя покемонами
+    Устраивает бой между двумя покемонами (по базовому здоровью).
 
-    :param first_pokemon [str]: Название первого покемона
-    :param second_pokemon [str]: Название второго покемона
+    Args:
+        first_pokemon (str): Имя первого покемона.
+        second_pokemon (str): Имя второго покемона.
 
-    :return: Выводит сообщение с результатом боя
+    Returns:
+        Ничего не возвращает, печатает результат боя.
     """
-    info_first = get_info_poke(first_pokemon)
-    info_second = get_info_poke(second_pokemon)
+    info1 = get_info_poke(first_pokemon)
+    info2 = get_info_poke(second_pokemon)
 
-    power_first = info_first['stats'][0]['base_stat']
-    power_second = info_second['stats'][0]['base_stat']
+    if not info1 or not info2:
+        print('Один из покемонов не найден.')
+        return
+
+    hp1 = info1['stats'][0]['base_stat']
+    hp2 = info2['stats'][0]['base_stat']
 
     print(f'\nТренировочный бой: {first_pokemon} VS {second_pokemon}')
-    if power_first > power_second:
-        print(f'Победил - {first_pokemon}!')
-    elif power_first < power_second:
-        print(f'Победил - {second_pokemon}!')
+    if hp1 > hp2:
+        print(f'Победил — {first_pokemon}!')
+    elif hp2 > hp1:
+        print(f'Победил — {second_pokemon}!')
     else:
         print('Ничья!')
 
 
-poke_team = []
+# Пример использования:
 add_poke_to_team('clefairy')
 get_info_team(poke_team)
 print_info_poke('clefairy')
