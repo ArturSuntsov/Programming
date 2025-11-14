@@ -6,12 +6,12 @@ def book_list(request):
         {
             'title': 'book1',
             'author': 'author1',
-            'year': '2001'
+            'year': '1882'
         },
         {
             'title': 'book2',
             'author': 'author2',
-            'year': '2009'
+            'year': '1928'
         }
     ]
 
