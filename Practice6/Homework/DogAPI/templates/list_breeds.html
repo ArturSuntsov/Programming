@@ -2,24 +2,24 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Список пород собак 🐾</title>
-    <link rel="stylesheet" href="static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Список пород собак </title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <section>
-        <h1>🐕 Все породы собак</h1>
-        <a href="{% url 'breeds_images' %}">Перейти к поиску породы</a>
-        <p></p>
+        <h1>Все породы собак</h1>
+        <p>Ниже представлен полный список доступных пород. Вы можете найти интересующую вас породу и посмотреть её фото.</p>
+        
         <ol>
             {% for breed in breeds %}
-                <li>{{ breed }}</li>
+                <li>{{ breed|capfirst }}</li>
+            {% empty %}
+                <li>Список пород пока пуст.</li>
             {% endfor %}
         </ol>
-    </section>
 
-    <section>
-        <a href="{% url 'breeds_images' %}">Перейти к поиску породы</a>
+        <p><a href="{% url 'breeds_images' %}">Перейти к поиску породы</a></p>
     </section>
-
 </body>
 </html>
