@@ -2,6 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 def book_list(request):
+    """Показывает список книг.
+
+    Args:
+        request (HttpRequest): HTTP-запрос от пользователя.
+    Returns:
+        HttpResponse: Страница со списком книг.
+    """
     books = [
         {
             'title': 'book1',
