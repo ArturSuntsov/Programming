@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пород собак 🐾</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <section>
+        <h1>🐕 Все породы собак</h1>
+        <a href="{% url 'breeds_images' %}">Перейти к поиску породы</a>
+        <p></p>
+        <ol>
+            {% for breed in breeds %}
+                <li>{{ breed }}</li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section>
+        <a href="{% url 'breeds_images' %}">Перейти к поиску породы</a>
+    </section>
+
+</body>
+</html>

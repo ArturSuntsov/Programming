@@ -1,0 +1,82 @@
+/* style.css */
+
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fdf6e3;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff8dc;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Заголовок */
+h2 {
+    text-align: center;
+    color: #6b4226;
+}
+
+/* Форма поиска */
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 60%;
+    border: 2px solid #d9b382;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #d9b382;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #c4955b;
+}
+
+/* Список собак */
+ul {
+    list-style-type: none; /* убираем стандартные маркеры */
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+li {
+    background-color: #fff5e6;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+li img {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
